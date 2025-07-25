@@ -4,21 +4,53 @@ import java.io.File;
 import java.security.Key;
 import java.security.KeyPair;
 
-
+/**
+ * Aplicación principal del sistema de cifrado híbrido RSA+AES con interfaz gráfica.
+ * 
+ * Esta clase representa la aplicación principal que proporciona una interfaz gráfica
+ * de usuario (GUI) moderna para el sistema de cifrado de archivos. Implementa tanto
+ * cifrado público como privado utilizando algoritmos RSA+AES, gestión de usuarios
+ * y un sistema de almacenamiento local seguro.
+ * 
+ * La aplicación incluye:
+ * - Interfaz gráfica moderna con diseño oscuro
+ * - Cifrado/descifrado público (accesible por todos los usuarios)
+ * - Cifrado/descifrado privado (específico por usuario)
+ * - Gestión de usuarios con claves RSA individuales
+ * - Sistema de autenticación mediante LoginDialog
+ * - Visualización de claves almacenadas
+ * 
+ * @author DenReanin
+ * @version 1.0
+ * @since 2025-07-25
+ * @see FileEncryptionUtil
+ * @see LocalStorage
+ * @see RSAUtil
+ * @see LoginDialog
+ */
 public class FileEncryptionApp {
+    /** Par de claves RSA del sistema para cifrado público */
     private KeyPair rsaKeyPair;
 
+    /**
+     * Constructor de la aplicación de cifrado.
+     * 
+     * Inicializa el par de claves RSA del sistema cargándolas desde el almacenamiento
+     * local si existen, o generando nuevas claves si es la primera ejecución.
+     * Las claves del sistema se utilizan para el cifrado público.
+     * 
+     * @see LocalStorage#systemKeysExist()
+     * @see RSAUtil#generateKeyPair()
+     * @see LocalStorage#saveSystemRSAKeys(String, String)
+     */
     public FileEncryptionApp() {
-        // Inicializa rsaKeyPair - cargar o crear claves persistentes del sistema
         try {
             if (LocalStorage.systemKeysExist()) {
-                // Cargar claves existentes del sistema
                 String publicKeyBase64 = LocalStorage.getSystemPublicKey();
                 String privateKeyBase64 = LocalStorage.getSystemPrivateKey();
                 rsaKeyPair = RSAUtil.base64ToKeyPair(publicKeyBase64, privateKeyBase64);
                 System.out.println("Claves del sistema cargadas desde almacenamiento local");
             } else {
-                // Generar nuevas claves del sistema y guardarlas
                 rsaKeyPair = RSAUtil.generateKeyPair();
                 String publicKeyBase64 = RSAUtil.publicKeyToBase64(rsaKeyPair.getPublic());
                 String privateKeyBase64 = RSAUtil.privateKeyToBase64(rsaKeyPair.getPrivate());
@@ -27,76 +59,83 @@ public class FileEncryptionApp {
             }
         } catch (Exception ex) {
             System.err.println("Error al manejar claves del sistema: " + ex.getMessage());
-            ex.printStackTrace(); // Manejo de excepciones adecuado
+            ex.printStackTrace();
         }
     }
 
+    /**
+     * Inicia la aplicación y construye la interfaz gráfica de usuario.
+     * 
+     * Este método configura la codificación UTF-8, establece el Look and Feel del sistema,
+     * crea la ventana principal con todos sus componentes (paneles de título, centro y estado),
+     * configura los ActionListeners para los botones y hace visible la aplicación.
+     * 
+     * @see SwingUtilities#invokeLater(Runnable)
+     * @see UIManager#setLookAndFeel(String)
+     */
     public void startApp() {
-        // Configurar UTF-8 para caracteres especiales
         System.setProperty("file.encoding", "UTF-8");
         
-        // Ejecuta la interfaz grafica en el hilo de despacho de eventos
         SwingUtilities.invokeLater(() -> {
-            // Configurar Look and Feel moderno
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception e) {
                 // Usar look and feel por defecto
             }
             
-            // Crear el marco principal
             JFrame frame = new JFrame("Aplicacion de Cifrado de Archivos");
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setSize(600, 500);
-            frame.setLocationRelativeTo(null); // Centrar en pantalla
+            frame.setLocationRelativeTo(null);
             frame.setResizable(false);
 
-            // Panel principal con diseno moderno
             JPanel mainPanel = new JPanel();
             mainPanel.setLayout(new BorderLayout());
-            mainPanel.setBackground(new Color(32, 35, 42)); // Fondo oscuro moderno
+            mainPanel.setBackground(new Color(32, 35, 42));
             frame.add(mainPanel);
 
-            // Panel de titulo
             JPanel titlePanel = createTitlePanel();
             mainPanel.add(titlePanel, BorderLayout.NORTH);
 
-            // Panel central con botones
             JPanel centerPanel = createCenterPanel();
             mainPanel.add(centerPanel, BorderLayout.CENTER);
 
-            // Panel de estado
             JPanel statusPanel = createStatusPanel();
             mainPanel.add(statusPanel, BorderLayout.SOUTH);
 
-            // Crear referencias a los componentes para los ActionListeners
             JLabel statusLabel = (JLabel) statusPanel.getComponent(0);
             JButton encryptButton = findButtonByText(centerPanel, "Cifrar Archivo");
             JButton decryptButton = findButtonByText(centerPanel, "Descifrar Archivo");
             JButton createUserButton = findButtonByText(centerPanel, "Crear Usuario");
             JButton viewKeysButton = findButtonByText(centerPanel, "Ver Claves");
 
-            // Configurar ActionListeners
             setupActionListeners(frame, statusLabel, encryptButton, decryptButton, createUserButton, viewKeysButton);
 
-            // Hacer visible el marco
             frame.setVisible(true);
         });
     }
 
+    /**
+     * Crea el panel de título con el encabezado de la aplicación.
+     * 
+     * Construye un panel con fondo oscuro que contiene el título principal
+     * y subtítulo de la aplicación con tipografía moderna y colores elegantes.
+     * 
+     * @return Panel de título configurado con los elementos gráficos
+     */
     private JPanel createTitlePanel() {
         JPanel titlePanel = new JPanel();
-        titlePanel.setBackground(new Color(24, 26, 31)); // Fondo mas oscuro para contraste
+        titlePanel.setBackground(new Color(24, 26, 31));
         titlePanel.setBorder(BorderFactory.createEmptyBorder(25, 20, 25, 20));
         
         JLabel titleLabel = new JLabel("Sistema de Cifrado Hibrido RSA+AES");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
-        titleLabel.setForeground(new Color(106, 176, 76)); // Verde moderno
+        titleLabel.setForeground(new Color(106, 176, 76));
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         
         JLabel subtitleLabel = new JLabel("Cifrado publico y privado con gestion de usuarios");
         subtitleLabel.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        subtitleLabel.setForeground(new Color(150, 155, 165)); // Gris suave
+        subtitleLabel.setForeground(new Color(150, 155, 165));
         subtitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
         
         titlePanel.setLayout(new GridLayout(2, 1, 0, 5));
@@ -106,9 +145,19 @@ public class FileEncryptionApp {
         return titlePanel;
     }
 
+    /**
+     * Crea el panel central con los botones principales de la aplicación.
+     * 
+     * Construye un panel con layout GridBagLayout que contiene los botones principales:
+     * cifrar archivo, descifrar archivo, crear usuario y ver claves. Incluye un
+     * separador visual entre las funciones de cifrado y gestión de usuarios.
+     * 
+     * @return Panel central con todos los botones de acción configurados
+     * @see #createModernButton(String, Color, Color)
+     */
     private JPanel createCenterPanel() {
         JPanel centerPanel = new JPanel();
-        centerPanel.setBackground(new Color(40, 44, 52)); // Fondo gris oscuro elegante
+        centerPanel.setBackground(new Color(40, 44, 52));
         centerPanel.setBorder(BorderFactory.createEmptyBorder(35, 45, 35, 45));
         centerPanel.setLayout(new GridBagLayout());
         
@@ -116,17 +165,14 @@ public class FileEncryptionApp {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Boton Cifrar
         JButton encryptButton = createModernButton("Cifrar Archivo", new Color(106, 176, 76), new Color(40, 44, 52));
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         centerPanel.add(encryptButton, gbc);
 
-        // Boton Descifrar
         JButton decryptButton = createModernButton("Descifrar Archivo", new Color(231, 76, 60), new Color(40, 44, 52));
         gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 2;
         centerPanel.add(decryptButton, gbc);
 
-        // Separador
         JSeparator separator = new JSeparator();
         separator.setPreferredSize(new Dimension(400, 2));
         separator.setBackground(new Color(60, 65, 75));
@@ -134,16 +180,13 @@ public class FileEncryptionApp {
         gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2; gbc.insets = new Insets(25, 10, 25, 10);
         centerPanel.add(separator, gbc);
 
-        // Reset insets
         gbc.insets = new Insets(8, 10, 8, 10);
         gbc.gridwidth = 1;
 
-        // Boton Crear Usuario
         JButton createUserButton = createModernButton("Crear Usuario", new Color(52, 152, 219), new Color(40, 44, 52));
         gbc.gridx = 0; gbc.gridy = 3;
         centerPanel.add(createUserButton, gbc);
 
-        // Boton Ver Claves
         JButton viewKeysButton = createModernButton("Ver Claves", new Color(230, 126, 34), new Color(40, 44, 52));
         gbc.gridx = 1; gbc.gridy = 3;
         centerPanel.add(viewKeysButton, gbc);
@@ -151,6 +194,18 @@ public class FileEncryptionApp {
         return centerPanel;
     }
 
+    /**
+     * Crea un botón moderno con estilo personalizado y efectos hover.
+     * 
+     * Genera un botón con diseño moderno, colores personalizados, tipografía
+     * específica y efectos de hover que cambian el color y borde cuando el
+     * cursor pasa sobre el botón.
+     * 
+     * @param text Texto a mostrar en el botón
+     * @param bgColor Color de fondo del botón
+     * @param textColor Color del texto del botón
+     * @return Botón configurado con estilo moderno y efectos hover
+     */
     private JButton createModernButton(String text, Color bgColor, Color textColor) {
         JButton button = new JButton(text);
         button.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -162,7 +217,6 @@ public class FileEncryptionApp {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setOpaque(true);
         
-        // Efecto hover mejorado
         button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 button.setBackground(bgColor.brighter());
@@ -180,19 +234,37 @@ public class FileEncryptionApp {
         return button;
     }
 
+    /**
+     * Crea el panel de estado que muestra información al usuario.
+     * 
+     * Construye un panel inferior que contiene una etiqueta de estado para
+     * mostrar mensajes informativos sobre las operaciones realizadas.
+     * 
+     * @return Panel de estado configurado con la etiqueta informativa
+     */
     private JPanel createStatusPanel() {
         JPanel statusPanel = new JPanel();
-        statusPanel.setBackground(new Color(24, 26, 31)); // Mismo color que el titulo
+        statusPanel.setBackground(new Color(24, 26, 31));
         statusPanel.setBorder(BorderFactory.createEmptyBorder(12, 20, 12, 20));
         
         JLabel statusLabel = new JLabel("Listo para cifrar y descifrar archivos de forma segura");
         statusLabel.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        statusLabel.setForeground(new Color(150, 155, 165)); // Gris suave
+        statusLabel.setForeground(new Color(150, 155, 165));
         
         statusPanel.add(statusLabel);
         return statusPanel;
     }
 
+    /**
+     * Busca un botón por su texto dentro de un contenedor de forma recursiva.
+     * 
+     * Recorre recursivamente todos los componentes de un contenedor buscando
+     * un JButton que contenga el texto especificado.
+     * 
+     * @param container Contenedor donde buscar el botón
+     * @param text Texto a buscar en los botones
+     * @return El botón encontrado o null si no se encuentra
+     */
     private JButton findButtonByText(Container container, String text) {
         for (Component component : container.getComponents()) {
             if (component instanceof JButton) {
@@ -208,10 +280,25 @@ public class FileEncryptionApp {
         return null;
     }
 
+    /**
+     * Configura los ActionListeners para todos los botones de la aplicación.
+     * 
+     * Este método establece los manejadores de eventos para cada botón:
+     * - Cifrar archivo: Permite elegir entre cifrado público y privado
+     * - Descifrar archivo: Permite elegir entre descifrado público y privado
+     * - Crear usuario: Abre diálogo para registrar nuevos usuarios
+     * - Ver claves: Muestra las claves almacenadas en consola
+     * 
+     * @param frame Ventana principal de la aplicación
+     * @param statusLabel Etiqueta de estado para mostrar mensajes
+     * @param encryptButton Botón de cifrado
+     * @param decryptButton Botón de descifrado
+     * @param createUserButton Botón de creación de usuarios
+     * @param viewKeysButton Botón de visualización de claves
+     */
     private void setupActionListeners(JFrame frame, JLabel statusLabel, JButton encryptButton, 
                                     JButton decryptButton, JButton createUserButton, JButton viewKeysButton) {
         
-        // ActionListener para cifrado
         encryptButton.addActionListener(e -> {
             Object[] options = {"Cifrado Publico", "Cifrado Privado"};
             int choice = JOptionPane.showOptionDialog(frame,
@@ -232,7 +319,6 @@ public class FileEncryptionApp {
             }
         });
 
-        // ActionListener para descifrado
         decryptButton.addActionListener(e -> {
             Object[] options = {"Descifrado Publico", "Descifrado Privado"};
             int choice = JOptionPane.showOptionDialog(frame,
@@ -351,7 +437,20 @@ public class FileEncryptionApp {
         });
     }
 
-    // Metodo para cifrado publico (usando claves del sistema)
+    /**
+     * Realiza el cifrado público de un archivo seleccionado por el usuario.
+     * 
+     * Este método permite al usuario seleccionar un archivo mediante un JFileChooser,
+     * genera una clave AES aleatoria, cifra el archivo usando las claves del sistema
+     * y guarda tanto el archivo cifrado como la clave protegida por RSA. El archivo
+     * cifrado queda disponible para ser descifrado por cualquier usuario del sistema.
+     * 
+     * @param parent Ventana padre para los diálogos
+     * @param statusLabel Etiqueta de estado para mostrar el resultado de la operación
+     * @see FileEncryptionUtil#generateKey()
+     * @see FileEncryptionUtil#encryptFile(File, File, Key)
+     * @see FileEncryptionUtil#saveKey(String, Key, java.security.PublicKey)
+     */
     private void encryptFilePublic(JFrame parent, JLabel statusLabel) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Seleccionar archivo para cifrado publico");
@@ -360,7 +459,6 @@ public class FileEncryptionApp {
         if (fileChooser.showOpenDialog(parent) == JFileChooser.APPROVE_OPTION) {
             File inputFile = fileChooser.getSelectedFile();
             
-            // Crear directorio publico y especificar la ruta completa
             File publicDirectory = new File(System.getProperty("user.home") + "/Documents/cs/encriptado");
             if (!publicDirectory.exists()) {
                 publicDirectory.mkdirs();
@@ -390,7 +488,19 @@ public class FileEncryptionApp {
         }
     }
 
-    // Metodo para cifrado privado (usando claves del usuario especifico)
+    /**
+     * Realiza el cifrado privado de un archivo para un usuario específico.
+     * 
+     * Este método solicita el nombre del usuario propietario, verifica que exista,
+     * permite seleccionar un archivo y lo cifra usando las claves RSA específicas
+     * del usuario. Solo el usuario especificado podrá descifrar posteriormente
+     * el archivo.
+     * 
+     * @param parent Ventana padre para los diálogos
+     * @param statusLabel Etiqueta de estado para mostrar el resultado de la operación
+     * @see LocalStorage#userExists(String)
+     * @see FileEncryptionUtil#savePrivateKey(String, String, Key, java.security.PublicKey)
+     */
     private void encryptFilePrivate(JFrame parent, JLabel statusLabel) {
         String username = JOptionPane.showInputDialog(parent, 
             "Cifrado Privado\n\n" +
@@ -450,9 +560,20 @@ public class FileEncryptionApp {
         }
     }
 
-    // Metodo para descifrado publico
+    /**
+     * Realiza el descifrado público de un archivo cifrado.
+     * 
+     * Este método permite al usuario navegar directamente a la carpeta de archivos
+     * públicos cifrados, seleccionar un archivo .enc y descifrarlo usando las
+     * claves del sistema. El archivo descifrado se guarda en la carpeta de
+     * descifrado público.
+     * 
+     * @param parent Ventana padre para los diálogos
+     * @param statusLabel Etiqueta de estado para mostrar el resultado de la operación
+     * @see FileEncryptionUtil#getKey(String, java.security.PrivateKey)
+     * @see FileEncryptionUtil#decryptFile(File, File, Key)
+     */
     private void decryptFilePublic(JFrame parent, JLabel statusLabel) {
-        // Navegar directamente a la carpeta publica
         File publicDirectory = new File(System.getProperty("user.home") + "/Documents/cs/encriptado");
         if (!publicDirectory.exists()) {
             JOptionPane.showMessageDialog(parent,
@@ -502,7 +623,19 @@ public class FileEncryptionApp {
         }
     }
 
-    // Metodo para descifrado privado
+    /**
+     * Realiza el descifrado privado de un archivo específico de un usuario.
+     * 
+     * Este método solicita el nombre del usuario, verifica que exista, navega
+     * a su carpeta privada de archivos cifrados, permite seleccionar un archivo
+     * y lo descifra usando las claves privadas del usuario. Solo archivos cifrados
+     * específicamente para ese usuario pueden ser descifrados.
+     * 
+     * @param parent Ventana padre para los diálogos
+     * @param statusLabel Etiqueta de estado para mostrar el resultado de la operación
+     * @see LocalStorage#userExists(String)
+     * @see FileEncryptionUtil#getPrivateKey(String, String, java.security.PrivateKey)
+     */
     private void decryptFilePrivate(JFrame parent, JLabel statusLabel) {
         String username = JOptionPane.showInputDialog(parent, 
             "Descifrado Privado\n\n" +
@@ -573,20 +706,28 @@ public class FileEncryptionApp {
         }
     }
 
+    /**
+     * Método principal que inicia la aplicación de cifrado.
+     * 
+     * Este método realiza la configuración inicial creando el usuario por defecto
+     * si no existe, muestra el diálogo de login para autenticación y, si el login
+     * es exitoso, inicia la aplicación principal.
+     * 
+     * @param args Argumentos de línea de comandos (no utilizados)
+     * @see DefaultSetup#createDefaultUser()
+     * @see LoginDialog
+     */
     public static void main(String[] args) {
-        // Crear usuario por defecto si no existe
         try {
             DefaultSetup.createDefaultUser();
         } catch (Exception e) {
             System.err.println("Error en configuracion inicial: " + e.getMessage());
         }
         
-        // Mostrar el dialogo de login unico
         LoginDialog loginDlg = new LoginDialog(null);
         loginDlg.setVisible(true);
 
         if (loginDlg.isSucceeded()) {
-            // Inicia la aplicacion
             FileEncryptionApp app = new FileEncryptionApp();
             app.startApp();
         }
