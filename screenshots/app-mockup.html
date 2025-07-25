@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encryption App - Mockup</title>
+    <style>
+        body {
+            margin: 0;
+            background: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .app-window {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            width: 500px;
+            overflow: hidden;
+        }
+        
+        .title-bar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .close { background: #ff5f56; }
+        .minimize { background: #ffbd2e; }
+        .maximize { background: #27ca3f; }
+        
+        .app-content {
+            padding: 30px;
+        }
+        
+        .user-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .user-status {
+            color: #27ae60;
+            font-size: 14px;
+        }
+        
+        .main-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .action-btn {
+            background: white;
+            border: 2px solid #e1e8ed;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #2c3e50;
+        }
+        
+        .action-btn:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .action-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .action-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .action-desc {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .quick-btn {
+            flex: 1;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .quick-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .quick-btn.secondary {
+            background: #95a5a6;
+        }
+        
+        .quick-btn.secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .status-bar {
+            background: #f8f9fa;
+            padding: 10px 20px;
+            font-size: 12px;
+            color: #7f8c8d;
+            border-top: 1px solid #e1e8ed;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #27ae60;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-window">
+        <div class="title-bar">
+            <div class="title">🔐 Encryption App - DenReanin</div>
+            <div class="window-controls">
+                <div class="control close"></div>
+                <div class="control minimize"></div>
+                <div class="control maximize"></div>
+            </div>
+        </div>
+        
+        <div class="app-content">
+            <div class="user-section">
+                <div class="user-avatar">DR</div>
+                <div class="user-name">DenReanin</div>
+                <div class="user-status">✅ Autenticado | RSA-2048 Activo</div>
+            </div>
+            
+            <div class="main-actions">
+                <div class="action-btn">
+                    <span class="action-icon">🔒</span>
+                    <div class="action-title">Cifrar Archivo</div>
+                    <div class="action-desc">Proteger archivos con RSA+AES</div>
+                </div>
+                
+                <div class="action-btn">
+                    <span class="action-icon">🔓</span>
+                    <div class="action-title">Descifrar Archivo</div>
+                    <div class="action-desc">Recuperar archivos cifrados</div>
+                </div>
+                
+                <div class="action-btn">
+                    <span class="action-icon">👤</span>
+                    <div class="action-title">Crear Usuario</div>
+                    <div class="action-desc">Nuevo par de claves</div>
+                </div>
+                
+                <div class="action-btn">
+                    <span class="action-icon">🔑</span>
+                    <div class="action-title">Ver Claves</div>
+                    <div class="action-desc">Gestionar claves RSA</div>
+                </div>
+            </div>
+            
+            <div class="quick-actions">
+                <button class="quick-btn">Cifrado Rápido</button>
+                <button class="quick-btn secondary">Configuración</button>
+            </div>
+        </div>
+        
+        <div class="status-bar">
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Sistema seguro</span>
+            </div>
+            <div>v1.0 | Java Swing</div>
+        </div>
+    </div>
+</body>
+</html>

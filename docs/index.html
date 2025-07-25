@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cifrado Híbrido RSA+AES | DenReanin</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1><i class="fas fa-shield-alt"></i> Sistema de Cifrado Híbrido</h1>
+                    <p class="subtitle">RSA + AES | Aplicación Java Segura</p>
+                    <p class="description">
+                        Aplicación de escritorio desarrollada en Java que implementa cifrado híbrido 
+                        RSA+AES para protección de archivos con interfaz gráfica moderna.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="https://github.com/DenReanin/encryption-app" class="btn btn-primary" target="_blank">
+                            <i class="fab fa-github"></i> Ver Código
+                        </a>
+                        <a href="https://github.com/DenReanin/encryption-app/releases" class="btn btn-secondary" target="_blank">
+                            <i class="fas fa-download"></i> Descargar
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="mockup">
+                        <div class="window-header">
+                            <div class="window-controls">
+                                <span class="control close"></span>
+                                <span class="control minimize"></span>
+                                <span class="control maximize"></span>
+                            </div>
+                            <span class="window-title">Aplicación de Cifrado</span>
+                        </div>
+                        <div class="window-content">
+                            <div class="app-interface">
+                                <div class="app-header">
+                                    <h3>Sistema de Cifrado Híbrido RSA+AES</h3>
+                                    <p>Cifrado público y privado con gestión de usuarios</p>
+                                </div>
+                                <div class="app-buttons">
+                                    <button class="app-btn encrypt">Cifrar Archivo</button>
+                                    <button class="app-btn decrypt">Descifrar Archivo</button>
+                                    <div class="app-row">
+                                        <button class="app-btn create">Crear Usuario</button>
+                                        <button class="app-btn view">Ver Claves</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="container">
+            <h2>🔧 Características Principales</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Cifrado Híbrido</h3>
+                    <p>RSA 2048-bit para claves + AES 128-bit para archivos. Combinación óptima de seguridad y rendimiento.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3>Interfaz Moderna</h3>
+                    <p>GUI desarrollada con Swing, diseño dark mode y experiencia de usuario intuitiva.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Multi-Usuario</h3>
+                    <p>Sistema dual: cifrado público (multiusuario) y cifrado privado (usuario específico).</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-virus"></i>
+                    </div>
+                    <h3>Seguridad Avanzada</h3>
+                    <p>Autenticación SHA-256, gestión automática de claves y almacenamiento local seguro.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Sin Dependencias</h3>
+                    <p>Almacenamiento local con Properties, sin necesidad de bases de datos externas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Código Limpio</h3>
+                    <p>Arquitectura modular, documentación Javadoc completa y buenas prácticas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="tech-stack">
+        <div class="container">
+            <h2>💻 Stack Tecnológico</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-java"></i>
+                    <span>Java SE 8+</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-window-restore"></i>
+                    <span>Swing GUI</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-key"></i>
+                    <span>JCE Cryptography</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-file-code"></i>
+                    <span>Javadoc</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2>⚡ Cómo Funciona</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Autenticación</h3>
+                        <p>Login seguro con credenciales por defecto o crear nuevo usuario</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Selección de Modo</h3>
+                        <p>Elegir entre cifrado público (multiusuario) o privado (individual)</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Cifrado/Descifrado</h3>
+                        <p>Procesar archivos con cifrado híbrido RSA+AES de nivel militar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation -->
+    <section class="installation">
+        <div class="container">
+            <h2>📦 Instalación y Uso</h2>
+            <div class="install-grid">
+                <div class="install-card">
+                    <h3><i class="fas fa-download"></i> Descarga Rápida</h3>
+                    <div class="code-block">
+                        <code>git clone https://github.com/DenReanin/encryption-app.git</code>
+                        <button class="copy-btn" onclick="copyToClipboard('git clone https://github.com/DenReanin/encryption-app.git')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="install-card">
+                    <h3><i class="fas fa-play"></i> Ejecución</h3>
+                    <div class="code-block">
+                        <code>javac *.java && java FileEncryptionApp</code>
+                        <button class="copy-btn" onclick="copyToClipboard('javac *.java && java FileEncryptionApp')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="credentials">
+                <h3>🔑 Credenciales por Defecto</h3>
+                <div class="cred-grid">
+                    <div class="cred-item">
+                        <strong>Usuario:</strong> <code>usuario</code>
+                    </div>
+                    <div class="cred-item">
+                        <strong>Contraseña:</strong> <code>1234</code>
+                    </div>
+                    <div class="cred-item">
+                        <strong>Pregunta de Seguridad:</strong> <code>azul</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture -->
+    <section class="architecture">
+        <div class="container">
+            <h2>🏗️ Arquitectura del Sistema</h2>
+            <div class="arch-diagram">
+                <div class="arch-component main">
+                    <i class="fas fa-desktop"></i>
+                    <h4>FileEncryptionApp</h4>
+                    <p>Interfaz principal y lógica de negocio</p>
+                </div>
+                <div class="arch-components">
+                    <div class="arch-component">
+                        <i class="fas fa-key"></i>
+                        <h4>RSAUtil</h4>
+                        <p>Operaciones criptográficas RSA</p>
+                    </div>
+                    <div class="arch-component">
+                        <i class="fas fa-file-shield"></i>
+                        <h4>FileEncryptionUtil</h4>
+                        <p>Cifrado híbrido de archivos</p>
+                    </div>
+                    <div class="arch-component">
+                        <i class="fas fa-database"></i>
+                        <h4>LocalStorage</h4>
+                        <p>Persistencia de datos</p>
+                    </div>
+                    <div class="arch-component">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <h4>LoginDialog</h4>
+                        <p>Sistema de autenticación</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Sistema de Cifrado Híbrido</h3>
+                    <p>Proyecto educativo desarrollado por DenReanin</p>
+                    <div class="social-links">
+                        <a href="https://github.com/DenReanin" target="_blank">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/denreanin" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces Rápidos</h4>
+                    <ul>
+                        <li><a href="https://github.com/DenReanin/encryption-app">Código Fuente</a></li>
+                        <li><a href="https://github.com/DenReanin/encryption-app/releases">Descargas</a></li>
+                        <li><a href="https://github.com/DenReanin/encryption-app/issues">Reportar Bug</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tecnologías</h4>
+                    <ul>
+                        <li>Java SE 8+</li>
+                        <li>Swing GUI</li>
+                        <li>RSA + AES</li>
+                        <li>SHA-256</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DenReanin. Proyecto educativo bajo MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
