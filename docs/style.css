@@ -405,6 +405,7 @@ body {
 
 .install-card {
     background: white;
+    display: grid;
     padding: 30px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
