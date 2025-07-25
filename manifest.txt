@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: FileEncryptionApp
-Created-By: DenReanin
-Implementation-Title: Encryption App
-Implementation-Version: 1.0
-Implementation-Vendor: DenReanin

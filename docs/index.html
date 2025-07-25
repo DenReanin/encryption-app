@@ -188,8 +188,8 @@
                 <div class="install-card">
                     <h3><i class="fas fa-play"></i> Ejecución</h3>
                     <div class="code-block">
-                        <code>javac *.java && java FileEncryptionApp</code>
-                        <button class="copy-btn" onclick="copyToClipboard('javac *.java && java FileEncryptionApp')">
+                        <code>java -jar EncryptionApp.jar</code>
+                        <button class="copy-btn" onclick="copyToClipboard('java -jar EncryptionApp.jar')">
                             <i class="fas fa-copy"></i>
                         </button>
                     </div>
@@ -216,7 +216,7 @@
     <!-- Architecture -->
     <section class="architecture">
         <div class="container">
-            <h2>🏗️ Arquitectura del Sistema</h2>
+            <h2>Arquitectura del Sistema</h2>
             <div class="arch-diagram">
                 <div class="arch-component main">
                     <i class="fas fa-desktop"></i>
@@ -230,7 +230,7 @@
                         <p>Operaciones criptográficas RSA</p>
                     </div>
                     <div class="arch-component">
-                        <i class="fas fa-file-shield"></i>
+                        <i class="fas fa-shield-alt"></i>
                         <h4>FileEncryptionUtil</h4>
                         <p>Cifrado híbrido de archivos</p>
                     </div>

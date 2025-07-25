@@ -310,6 +310,8 @@ body {
 .tech-item {
     background: white;
     padding: 30px;
+    display: flex;
+    flex-direction: column;
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--shadow);
