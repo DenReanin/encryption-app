@@ -2,7 +2,7 @@
 
 Una aplicación segura de cifrado de archivos desarrollada con Java Swing que implementa cifrado híbrido RSA + AES.
 
-## 📚 Contexto Académico
+## Contexto Académico
 
 Este proyecto fue desarrollado como parte de la asignatura **COMPRESIÓN Y SEGURIDAD** del **Grado en Ingeniería Multimedia** en la **Universidad de Alicante (UA)**. 
 
@@ -78,7 +78,7 @@ Este proyecto está licenciado bajo la Licencia MIT - consulta el archivo [LICEN
 
 Siéntete libre de hacer fork de este proyecto y enviar pull requests.
 
-## 🤖 AI Assistance & Attribution
+## AI Assistance & Attribution
 
 Partes de este proyecto utilizaron asistencia de IA:
 
@@ -89,9 +89,9 @@ Partes de este proyecto utilizaron asistencia de IA:
 - **Formato de archivos**: README y documentación mejorados con IA
 
 ### **Autoría**
-- ✅ **Algoritmos y lógica**: [@DenReanin](https://github.com/DenReanin)
-- ✅ **Arquitectura de seguridad**: [@DenReanin](https://github.com/DenReanin)
-- 🤖 **Presentación y documentación**: Asistencia de IA
+- **Algoritmos y lógica**: [@DenReanin](https://github.com/DenReanin)
+- **Arquitectura de seguridad**: [@DenReanin](https://github.com/DenReanin)
+- **Presentación y documentación**: Asistencia de IA
 
 ---
 
