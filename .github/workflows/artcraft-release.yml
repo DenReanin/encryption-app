@@ -1,0 +1,35 @@
+name: ArtCraft Release (Encryption App JAR)
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Compilar JAR y ejecutar TestEncryptionApp
+        run: |
+          java BuildApp.java
+          java -cp build TestEncryptionApp
+          sha256sum FileEncryptionApp.jar > FileEncryptionApp.jar.sha256
+
+      - name: Publicar GitHub Release automática desde main
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v2.0.${{ github.run_number }}"
+          name: "Encryption App v2.0.${{ github.run_number }} (${{ github.sha }})"
+          generate_release_notes: true
+          files: |
+            FileEncryptionApp.jar
+            FileEncryptionApp.jar.sha256

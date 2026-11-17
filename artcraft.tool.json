@@ -1,0 +1,23 @@
+{
+  "id": "encryption-app",
+  "name": "Encryption App",
+  "abbr": "EA",
+  "tagline": "Cifrado híbrido local RSA-OAEP + AES-256-GCM y autenticación PBKDF2 en Java Swing",
+  "category": "Ciberseguridad",
+  "brandColor": "#10B981",
+  "icon": "shield-check",
+  "repo": "DenReanin/encryption-app",
+  "branch": "main",
+  "private": false,
+  "updateStrategy": {
+    "mode": "branch-tarball",
+    "postInstall": "bash ./run-encryption-app.sh --setup-only",
+    "requireMainCheckSuccess": false
+  },
+  "launch": {
+    "executable": "run-encryption-app.sh",
+    "args": [],
+    "workingDir": "bin",
+    "runInTerminal": false
+  }
+}
